@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "G23PLnmX6p1GjrVjKJZu1vTpw/LDuB4JG/yzKAc+WGMYKAj57LfICToIRx0Cfb3IdAr7M0dvqr4bdghr1SamEQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Татьяна Гриценко\\Documents\\4 курс\\Разработка распределённых приложений\\pong2\\pong2\\pong2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Татьяна Гриценко\\.nuget\\packages\\raylib-cs\\5.0.0\\raylib-cs.5.0.0.nupkg.sha512",
+    "C:\\Users\\Татьяна Гриценко\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
