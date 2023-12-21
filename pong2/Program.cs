@@ -12,11 +12,6 @@ namespace pong2
 
             client.Start();
 
-            Console.WriteLine("Нажмите на любую клавишу для старта игры...");
-            Console.ReadLine();
-
-            Game.Play();
-
             // пример красивой формы для ввода данных пользователем
             //InputBox.Example(); 
         }
