@@ -35,17 +35,10 @@ namespace pong2
 
         public void Start()
         {
-            int code = 0;
-
             if (fileInfo.Exists)
-                code = AutoLogin();
+                AutoLogin();
             else
-                code = LoginOrRegistration();
-
-            if (code == 1)
-            {
-                Menu();
-            }
+                LoginOrRegistration();
         }
 
         string SendCommand(string command, params string[] args)
@@ -54,9 +47,7 @@ namespace pong2
             client.Connect(ipEndPoint);
             string message = command;
             foreach (var item in args)
-            {
                 message += " " + item;
-            }
 
             byte[] commandBytes = Encoding.UTF8.GetBytes(message);
             int bytesSent = client.Send(commandBytes);
@@ -76,7 +67,7 @@ namespace pong2
             return int.Parse(splitString[1]);
         }
 
-        int AutoLogin()
+        void AutoLogin()
         {
             using (StreamReader file = new StreamReader(path, Encoding.UTF8))
             {
@@ -85,21 +76,30 @@ namespace pong2
             }
 
             string answer = SendCommand("LOGIN", login, password);
-            
-            int code = GetCode(answer);
 
-            if (code == 0)
+            if (GetCode(answer) == 0)
                 Console.WriteLine("An incorrect username or password has been entered");
-
-            return code;
+            else
+                Menu();
         }
 
-        private int LoginOrRegistration()
+        private void LoginOrRegistration()
         {
             Console.WriteLine();
             Console.WriteLine("1. Вход");
             Console.WriteLine("2. Регистрация");
+            Console.WriteLine();
+            Console.WriteLine("3. Выход из приложения");
             int choice = int.Parse(Console.ReadLine());
+
+            if (choice != 1 && choice != 2 && choice != 3)
+            {
+                Console.WriteLine("Некорректный ввод");
+                return;
+            }
+
+            if (choice == 3)
+                return;
 
             int code = 0; // код, который возвращает сервер
 
@@ -123,7 +123,11 @@ namespace pong2
                         answer = SendCommand("REGISTER", login, password);
                         break;
 
+                    case 3:
+                        return;
+
                     default:
+                        Console.WriteLine("Некорректный ввод");
                         break;
                 }
 
@@ -143,6 +147,7 @@ namespace pong2
                                 break;
 
                             default:
+                                Console.WriteLine("Некорректный ввод");
                                 break;
                         }
                         break;
@@ -153,11 +158,14 @@ namespace pong2
                             file.WriteLine(login);
                             file.WriteLine(password);
                         }
+                        Menu();
+                        break;
+
+                    default:
+                        Console.WriteLine("Некорректный код");
                         break;
                 }
             }
-
-            return code;
         }
 
         private void Menu()
@@ -176,7 +184,8 @@ namespace pong2
                 {
                     case 1:
                         Game.Play();
-                        SendCommand("SCORE", login, Game.player_score.ToString());
+                        //int endGameScore = Game.player_score - Game.cpu_score;
+                        SendCommand("ENDGAME", login, Game.player_score.ToString());
 
                         break;
 
@@ -189,6 +198,7 @@ namespace pong2
                         break;
 
                     default:
+                        Console.WriteLine("Некорректный ввод");
                         break;
                 }
             }
@@ -199,12 +209,41 @@ namespace pong2
             Console.WriteLine();
             Console.WriteLine("ПРОФИЛЬ");
             Console.WriteLine($"Имя пользователя: {login}");
-            Console.WriteLine($"Кол-во очков: {score}"); //   (команда серверу)      GETSCORE login
-            // вывод top-score (первые 5)                     (команда серверу)      TOPSCORE                  
+
+            string answer = SendCommand("GETSCORE", login);
+            switch (GetCode(answer))
+            {
+                case 0:
+                    Console.WriteLine("An incorrect username has been entered");
+                    break;
+
+                case 1:
+                    string[] splitString = answer.Split(' ');
+                    score = splitString[splitString.Length - 1];
+                    break;
+
+                default:
+                    Console.WriteLine("Некорректный код");
+                    break;
+            }
+            Console.WriteLine($"Кол-во очков: {score}");
+
+            Console.WriteLine();
+            Console.WriteLine("TOPSCORE");
+            answer = SendCommand("TOPSCORE");
+            string[] splitAnswer = answer.Split(' ');
+            int place = 1;
+            for (int i = 5; i < splitAnswer.Length-1; i += 2, place++)
+            {
+                Console.WriteLine($"{place}. {splitAnswer[i]} {splitAnswer[i + 1]}");
+            }
+
             Console.WriteLine();
             Console.WriteLine("1. Изменить имя пользователя");
             Console.WriteLine("2. Выход из профиля");
-            Console.WriteLine("3. Меню");
+            Console.WriteLine("3. Удалить профиль");
+            Console.WriteLine();
+            Console.WriteLine("4. Меню");
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -217,11 +256,34 @@ namespace pong2
                 case 2:
                     fileInfo.Delete();
                     LoginOrRegistration();
-                    Menu();
                     break;
 
                 case 3:
+                    Console.Write("Введите пароль: ");
+                    string pass = Console.ReadLine();
+                    string answerFromServer = SendCommand("DELETE", login, pass);
+                    switch (GetCode(answerFromServer))
+                    {
+                        case 0:
+                            Console.WriteLine("An incorrect username or password has been entered");
+                            break;
+
+                        case 1:
+                            fileInfo.Delete();
+                            LoginOrRegistration();
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+
+                case 4:
                     Menu();
+                    break;
+
+                default:
+                    Console.WriteLine("Некорректный ввод");
                     break;
             }
         }
@@ -247,7 +309,10 @@ namespace pong2
                         file.WriteLine(password);
                     }
                     break;
-               
+
+                default:
+                    Console.WriteLine("Некорректный код");
+                    break;
             }
         }
 

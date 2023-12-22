@@ -27,16 +27,18 @@ namespace pong2
             x += speed_x;
             y += speed_y;
 
+            // шарик коснулся верхней или нижней грани
             if (y + radius >= GetScreenHeight() || y - radius <= 0)
             {
                 speed_y *= -1;
             }
+
+            // шарик коснулся левой или правой грани
             if (x + radius >= GetScreenWidth())
             {
                 Game.cpu_score++;
                 ResetBall();
             }
-
             if (x - radius <= 0)
             {
                 Game.player_score++;
