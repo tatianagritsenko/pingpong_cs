@@ -128,26 +128,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Татьяна Гриценко\\.nuget\\packages\\": {}
+    "/Users/setuyaa/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Татьяна Гриценко\\Documents\\4 курс\\Разработка распределённых приложений\\pong2\\pong2\\pong2.csproj",
+      "projectUniqueName": "/Users/setuyaa/Desktop/pingpong_cs/pong2/pong2.csproj",
       "projectName": "pong2",
-      "projectPath": "C:\\Users\\Татьяна Гриценко\\Documents\\4 курс\\Разработка распределённых приложений\\pong2\\pong2\\pong2.csproj",
-      "packagesPath": "C:\\Users\\Татьяна Гриценко\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Татьяна Гриценко\\Documents\\4 курс\\Разработка распределённых приложений\\pong2\\pong2\\obj\\",
+      "projectPath": "/Users/setuyaa/Desktop/pingpong_cs/pong2/pong2.csproj",
+      "packagesPath": "/Users/setuyaa/.nuget/packages/",
+      "outputPath": "/Users/setuyaa/Desktop/pingpong_cs/pong2/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Татьяна Гриценко\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/setuyaa/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -187,7 +185,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.408/RuntimeIdentifierGraph.json"
       }
     }
   }

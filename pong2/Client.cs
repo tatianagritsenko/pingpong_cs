@@ -26,6 +26,7 @@ namespace pong2
             client.Connect(ipEndPoint);
             Console.WriteLine("Клиент соединился с {0} ", client.RemoteEndPoint.ToString());
 
+
             // Заготовка для меню
 
             /*Console.WriteLine("_______МЕНЮ_______");

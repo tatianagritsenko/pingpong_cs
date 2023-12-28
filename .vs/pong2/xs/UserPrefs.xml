@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{10D5B41A-543A-4577-B5D1-CF07249DBB58}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="pong2/InputBox.cs">
+    <Files>
+      <File FileName="pong2/CPUPaddle.cs" />
+      <File FileName="pong2/Ball.cs" />
+      <File FileName="pong2/Colors.cs" />
+      <File FileName="pong2/Client.cs" />
+      <File FileName="pong2/Program.cs" />
+      <File FileName="pong2/Game.cs" />
+      <File FileName="pong2/InputBox.cs" Line="242" Column="44" />
+      <File FileName="pong2/Paddle.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="pong2" expanded="True">
+            <Node name="pong2" expanded="True">
+              <Node name="InputBox.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.pong2 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>
