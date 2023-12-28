@@ -13,8 +13,8 @@ namespace pong2
         IPAddress ipAddr;
         IPEndPoint ipEndPoint;
 
-        string login;
-        string password;
+        public string login;
+        public string password;
         string score;
 
         string path = "user.txt";
@@ -183,10 +183,24 @@ namespace pong2
                 switch (menu)
                 {
                     case 1:
-                        Game.Play();
-                        //int endGameScore = Game.player_score - Game.cpu_score;
-                        SendCommand("ENDGAME", login, Game.player_score.ToString());
+                        string answer = SendCommand("RUNGAME", login, password);
+                        switch (GetCode(answer))
+                        {
+                            case 0:
+                                Console.WriteLine("An incorrect username or password has been entered");
+                                break;
 
+                            default:
+                                Console.WriteLine(answer);
+                                string[] splitAnswer = answer.Split(' ');
+                                int newPort = int.Parse(splitAnswer[1]);
+
+                                var game = new GameClient(ServerIP, newPort);
+                                int score = game.Play();
+
+                                SendCommand("ENDGAME", login, score.ToString());
+                                break;
+                        }
                         break;
 
                     case 2:

@@ -6,14 +6,15 @@ namespace pong2
 {
     public static class Game
     {
-        public static int player_score = 0;
-        public static int cpu_score = 0;
+        public static int Player_score { get; set; } = 0;
+        public static int Cpu_score { get; set; } = 0;
+
+        const int screen_width = 1280;
+        const int screen_height = 800;
 
         public static void Play()
         {
             Console.WriteLine("Starting the game");
-            const int screen_width = 1280;
-            const int screen_height = 800;
             InitWindow(screen_width, screen_height, "My Pong Game!");
             SetTargetFPS(60);
 
@@ -31,11 +32,11 @@ namespace pong2
                 cpu.Update((int)ball.y);
 
                 // Checking for collisions
-                if (CheckCollisionCircleRec(new Vector2(ball.x, ball.y), ball.radius, new Rectangle(player.x, player.y, player.width, player.height)))
+                if (CheckCollisionCircleRec(new Vector2(ball.x, ball.y), ball.radius, new Rectangle(player.X, player.Y, player.Width, player.Height)))
                 {
                     ball.speed_x *= -1;
                 }
-                if (CheckCollisionCircleRec(new Vector2(ball.x, ball.y), ball.radius, new Rectangle(cpu.x, cpu.y, cpu.width, cpu.height)))
+                if (CheckCollisionCircleRec(new Vector2(ball.x, ball.y), ball.radius, new Rectangle(cpu.X, cpu.Y, cpu.Width, cpu.Height)))
                 {
                     ball.speed_x *= -1;
                 }
@@ -48,8 +49,8 @@ namespace pong2
                 ball.Draw();
                 cpu.Draw();
                 player.Draw();
-                DrawText(cpu_score.ToString(), screen_width / 4 - 20, 20, 80, Color.WHITE);
-                DrawText(player_score.ToString(), 3 * screen_width / 4 - 20, 20, 80, Color.WHITE);
+                DrawText(Cpu_score.ToString(), screen_width / 4 - 20, 20, 80, Color.WHITE);
+                DrawText(Player_score.ToString(), 3 * screen_width / 4 - 20, 20, 80, Color.WHITE);
 
                 EndDrawing();
             }

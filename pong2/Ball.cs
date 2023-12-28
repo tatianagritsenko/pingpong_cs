@@ -36,12 +36,12 @@ namespace pong2
             // шарик коснулся левой или правой грани
             if (x + radius >= GetScreenWidth())
             {
-                Game.cpu_score++;
+                Game.Cpu_score++;
                 ResetBall();
             }
             if (x - radius <= 0)
             {
-                Game.player_score++;
+                Game.Player_score++;
                 ResetBall();
             }
         }

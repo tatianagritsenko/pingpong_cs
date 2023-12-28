@@ -5,33 +5,36 @@ namespace pong2
 {
     public class Paddle
     {
-        public float x, y;
-        public float width, height;
-        public int speed;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Width { get; set; }
+        public float Height { get; set; }
+        public int Speed { get; set; }
+    
 
         public Paddle(float w, float h, float x, float y, int s)
         {
-            this.x = x;
-            this.y = y;
-            width = w;
-            height = h;
-            speed = s;
+            Width = w;
+            Height = h;
+            X = x;
+            Y = y;
+            Speed = s;
         }
 
         public void Draw()
         {
-            DrawRectangleRounded(new Rectangle(x, y, width, height), 0.8f, 0, Color.WHITE);
+            DrawRectangleRounded(new Rectangle(X, Y, Width, Height), 0.8f, 0, Color.WHITE);
         }
 
         public void Update()
         {
             if (IsKeyDown(KeyboardKey.KEY_UP))
             {
-                y -= speed;
+                Y -= Speed;
             }
             if (IsKeyDown(KeyboardKey.KEY_DOWN))
             {
-                y += speed;
+                Y += Speed;
             }
 
             LimitMovement();
@@ -39,13 +42,13 @@ namespace pong2
 
         protected void LimitMovement()
         {
-            if (y <= 0)
+            if (Y <= 0)
             {
-                y = 0;
+                Y = 0;
             }
-            if (y + height >= GetScreenHeight())
+            if (Y + Height >= GetScreenHeight())
             {
-                y = GetScreenHeight() - height;
+                Y = GetScreenHeight() - Height;
             }
         }
     }

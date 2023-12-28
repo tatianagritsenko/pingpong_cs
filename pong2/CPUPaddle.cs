@@ -6,13 +6,13 @@
 
         public void Update(int ball_y)
         {
-            if (y + height / 2 > ball_y)
+            if (Y + Height / 2 > ball_y)
             {
-                y -= speed;
+                Y -= Speed;
             }
-            if (y + height / 2 <= ball_y)
+            if (Y + Height / 2 <= ball_y)
             {
-                y += speed;
+                Y += Speed;
             }
             LimitMovement();
         }
