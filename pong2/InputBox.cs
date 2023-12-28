@@ -156,8 +156,8 @@ namespace pong2
 
                 if (IsKeyPressed(KeyboardKey.KEY_ENTER))
                 {
-                    lp.login = log;
-                    lp.password = pas;
+                    lp.login = new string(log);
+                    lp.password = new string(pas);
                     break;
                 }
                 char[] secret = new char[256];
@@ -236,12 +236,15 @@ namespace pong2
 
                 if (IsKeyPressed(KeyboardKey.KEY_ENTER))
                 {
-                    lp.login = log;
-                    lp.password = pas;
+                    lp.login = new string(log);
+                    lp.password = new string(pas);
                     break;
                 }
+                char[] secret = new char[256];
+                for (int i = 0; i < letterCountPas; i++)
+                    secret[i] = '*';
                 DrawText(new string(log), (int)login.X + 5, (int)login.Y + 8, 40, Color.MAROON);
-                DrawText(new string(pas), (int)pass.X + 5, (int)pass.Y + 8, 40, Color.MAROON);
+                DrawText(new string(secret), (int)pass.X + 5, (int)pass.Y + 8, 40, Color.MAROON);
                 DrawText("Press ENTER to continue...", screenWidth / 2 - 250, 300 + 8, 40, Color.MAROON);
                 if (log[0] == 0)
                     DrawText("Create a login", (int)login.X + 15, (int)login.Y + 15, 20, Color.DARKGRAY);
@@ -268,8 +271,8 @@ namespace pong2
 
                 DrawText("Welcome to the Pong game!", screenWidth/2 - 250, 140, 40, Color.MAROON);
                 DrawText("Choose the right option:", screenWidth / 2 - 175, 190, 30, Color.GRAY);
-                DrawText("1) Sign up for Pong", screenWidth / 2 - 75, 230, 20, Color.DARKGRAY);
-                DrawText("2) Log in", screenWidth / 2 - 75, 260, 20, Color.DARKGRAY);
+                DrawText("1) Sign up", screenWidth / 2 - 75, 230, 20, Color.DARKGRAY);
+                DrawText("2) Sign in", screenWidth / 2 - 75, 260, 20, Color.DARKGRAY);
 
                 if(IsKeyPressed(KeyboardKey.KEY_ONE))
                 {

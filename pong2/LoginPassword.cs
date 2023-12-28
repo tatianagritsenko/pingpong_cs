@@ -3,7 +3,7 @@ namespace pong2
 {
 	public struct LoginPassword
 	{
-		public char[] login;
-		public char[] password;
+		public String login;
+		public String password;
 	}
 }

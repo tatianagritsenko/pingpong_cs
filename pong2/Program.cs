@@ -23,8 +23,8 @@ namespace pong2
             // 1 - регистрация
             LoginPassword logPass;
             string str = "default";
-            logPass.login = str.ToCharArray();
-            logPass.password = str.ToCharArray();
+            logPass.login = str;
+            logPass.password = str;
             switch (opt) { 
                 case 1:
                     logPass = InputBox.Registration();
