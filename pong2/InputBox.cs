@@ -238,6 +238,8 @@ namespace pong2
                 {
                     lp.login = new string(log);
                     lp.password = new string(pas);
+                    lp.login = lp.login.Remove(letterCountLog);
+                    lp.password = lp.password.Remove(letterCountPas);
                     break;
                 }
                 char[] secret = new char[256];
