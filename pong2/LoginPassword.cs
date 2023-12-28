@@ -5,5 +5,6 @@ namespace pong2
 	{
 		public String login;
 		public String password;
+		public int field;
 	}
 }
