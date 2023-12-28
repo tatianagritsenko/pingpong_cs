@@ -324,7 +324,7 @@ namespace pong2
                 DrawText($"1) Change my name", screenWidth / 2 - 250, 90 + 30, 20, Color.GRAY);
                 DrawText($"2) Change user", screenWidth / 2 - 250, 90 + 60, 20, Color.GRAY);
                 DrawText($"3) Delete the profile", screenWidth / 2 - 250, 90 + 90, 20, Color.GRAY);
-                DrawText($"4) Go back to the menu", screenWidth / 2 - 250, 90 + 120, 20, Color.GRAY);
+                DrawText($"4) Go back to menu", screenWidth / 2 - 250, 90 + 120, 20, Color.GRAY);
 
                 if (IsKeyPressed(KeyboardKey.KEY_ONE))
                 {
@@ -401,7 +401,6 @@ namespace pong2
                 WriteInRec(mouseOnText, letterCountLog, log, login, framesCounter);
                 EndDrawing();
             }
-            //CloseWindow();
             return logs;
         }
     }
