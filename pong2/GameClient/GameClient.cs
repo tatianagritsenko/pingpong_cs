@@ -51,13 +51,6 @@ namespace pong2
             return answer;
         }
 
-        int GetCode(string answer)
-        {
-            string[] splitString = answer.Split(' ');
-
-            return int.Parse(splitString[1]);
-        }
-
         public int Play()
         {
             // Устанавливаем удаленную точку для сокета

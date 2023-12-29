@@ -5,6 +5,5 @@ namespace pong2
 	{
 		public string login;
 		public string password;
-        public int field;
     }
 }

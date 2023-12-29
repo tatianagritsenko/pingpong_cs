@@ -123,11 +123,11 @@ namespace pong2
                         switch (opt)
                         {
                             case 1:
-                                Console.WriteLine("An incorrect username or password has been entered");
+                                Console.WriteLine("Username is already in use");
                                 break;
 
                             case 2:
-                                Console.WriteLine("Username is already in use");
+                                Console.WriteLine("An incorrect username or password has been entered");
                                 break;
                         }
                         break;
@@ -178,7 +178,6 @@ namespace pong2
                     break;
 
                 default:
-                    
                     string[] splitAnswer = answer.Split(' ');
                     int newPort = int.Parse(splitAnswer[1]);
 
