@@ -309,12 +309,54 @@ namespace pong2
             return opt;
         }
 
-        
-        public static int Profile(String login, String[] tops, int[] scores) 
+        public static void IncorrectAuth()
+        {
+
+            while (!WindowShouldClose())
+            {
+
+                BeginDrawing();
+                ClearBackground(Color.RAYWHITE);
+
+                DrawText("An incorrect username or password ", screenWidth / 2 - 375, 140, 40, Color.MAROON);
+                DrawText("has been entered!", screenWidth / 2 - 150, 180, 40, Color.MAROON);
+
+                DrawText("Press ENTER to try again...", screenWidth / 2 - 125, 240, 20, Color.GRAY);
+
+                if (IsKeyPressed(KeyboardKey.KEY_ENTER))
+                {
+                    EndDrawing();
+                    break;
+                }
+
+                EndDrawing();
+            }
+        }
+        public static void IncorrectAuth2()
+        {
+
+            while (!WindowShouldClose())
+            {
+
+                BeginDrawing();
+                ClearBackground(Color.RAYWHITE);
+
+                DrawText("Username is already in use", screenWidth / 2 - 250, 180, 40, Color.MAROON);
+                DrawText("Press ENTER to try again...", screenWidth / 2 - 125, 240, 20, Color.GRAY);
+
+                if (IsKeyPressed(KeyboardKey.KEY_ENTER))
+                {
+                    EndDrawing();
+                    break;
+                }
+
+                EndDrawing();
+            }
+
+        }
+        public static int Profile(String login, String[] tops, int[] scores, string score) 
         {
             int choice = 0;
-            //CloseWindow();
-            //InitWindow(screenWidth, screenHeight, "STN pong");
             while (!WindowShouldClose())
             {
                 int h = 0;
@@ -327,6 +369,8 @@ namespace pong2
                 {
                     DrawText($"{i+1}. {tops[i]} - {scores[i]} ", screenWidth / 2 +75, 60 + 30*i, 20, Color.DARKGRAY); 
                 }
+                DrawText($"Your points in the ranking: {score}", screenWidth / 2 - 75, 90 + 160, 30, Color.MAROON);
+
                 DrawText($"What do you want?", screenWidth / 2 - 300, 90, 25, Color.MAROON);
                 DrawText($"1) Change my name", screenWidth / 2 - 250, 90 + 30, 20, Color.GRAY);
                 DrawText($"2) Change user", screenWidth / 2 - 250, 90 + 60, 20, Color.GRAY);
@@ -401,6 +445,53 @@ namespace pong2
                 if (log[0] == 0)
                     DrawText("Create a login", (int)login.X + 15, (int)login.Y + 15, 20, Color.DARKGRAY);
                 WriteInRec(mouseOnText, letterCountLog, log, login, framesCounter);
+                EndDrawing();
+            }
+            return logs;
+        }
+        public static string ConfirmPassword()
+        {
+            string logs = "";
+            char[] log = new char[MaxInputChars];
+            int letterCountLog = 0;
+
+            Rectangle password = new(screenWidth / 2 - 100, 180, 225, 50);
+            bool mouseOnText = false;
+            int framesCounter = 0;
+            SetTargetFPS(60);
+
+            // Main game loop
+            while (!WindowShouldClose())
+            {
+                mouseOnText = Update(password);
+                letterCountLog = WriteRec(mouseOnText, letterCountLog, log);
+                if (mouseOnText)
+                    framesCounter += 1;
+                else
+                    framesCounter = 0;
+
+                // Draw
+                BeginDrawing();
+                ClearBackground(Color.RAYWHITE);
+
+                DrawText("Enter the current password", 100, 110, 40, Color.MAROON);
+                DrawRectangleRec(password, Color.LIGHTGRAY);
+
+                DrawRec(password, mouseOnText);
+                if (IsKeyPressed(KeyboardKey.KEY_ENTER))
+                {
+                    logs = new string(log);
+                    logs = logs.Remove(letterCountLog);
+                    break;
+                }
+                char[] secret = new char[256];
+                for (int i = 0; i < letterCountLog; i++)
+                    secret[i] = '*';
+                DrawText(new string(secret), (int)password.X + 5, (int)password.Y + 8, 40, Color.MAROON);
+                DrawText("Press ENTER to continue...", screenWidth / 2 - 120, 250, 20, Color.GRAY);
+                if (log[0] == 0)
+                    DrawText("password", (int)password.X + 15, (int)password.Y + 15, 20, Color.DARKGRAY);
+                WriteInRec(mouseOnText, letterCountLog, log, password, framesCounter);
                 EndDrawing();
             }
             return logs;

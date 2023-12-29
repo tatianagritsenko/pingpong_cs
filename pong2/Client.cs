@@ -83,7 +83,11 @@ namespace pong2
             string answer = SendCommand("LOGIN", logPass.login, logPass.password);
 
             if (GetCode(answer) == 0)
-                Console.WriteLine("An incorrect username or password has been entered");
+            {
+                EndDrawing();
+                InputBox.IncorrectAuth();
+            }
+            //Console.WriteLine("An incorrect username or password has been entered");
             else
                 Menu();
         }
@@ -123,11 +127,15 @@ namespace pong2
                         switch (opt)
                         {
                             case 1:
-                                Console.WriteLine("Username is already in use");
+                                //in use
+                                EndDrawing();
+                                InputBox.IncorrectAuth2();
                                 break;
 
                             case 2:
-                                Console.WriteLine("An incorrect username or password has been entered");
+                                // incorrect
+                                EndDrawing();
+                                InputBox.IncorrectAuth();
                                 break;
                         }
                         break;
@@ -174,7 +182,7 @@ namespace pong2
             switch (GetCode(answer))
             {
                 case 0:
-                    Console.WriteLine("An incorrect username or password has been entered");
+                    InputBox.IncorrectAuth();
                     break;
 
                 default:
@@ -198,15 +206,15 @@ namespace pong2
                 switch (GetCode(answer))
                 {
                     case 0:
-                        Console.WriteLine("An incorrect username has been entered");
+                        EndDrawing();
+                        InputBox.IncorrectAuth();
                         break;
-
                     case 1:
                         string[] splitString = answer.Split(' ');
                         score = splitString[splitString.Length - 1];
                         break;
                 }
-                Console.WriteLine($"Кол-во очков: {score}");
+               // Console.WriteLine($"Кол-во очков: {score}");
 
                 answer = SendCommand("TOPSCORE");
                 string[] splitAnswer = answer.Split(' ');
@@ -221,7 +229,7 @@ namespace pong2
                     scores[i] = int.Parse(splitAnswer[6 + i * 2]);
                 }
 
-                int choice = InputBox.Profile(logPass.login, names, scores);
+                int choice = InputBox.Profile(logPass.login, names, scores, score);
 
                 switch (choice)
                 {
@@ -235,15 +243,16 @@ namespace pong2
                         break;
 
                     case 3:
-                        Console.Write("Введите пароль: ");
-                        string pass = Console.ReadLine();
+                        //Console.Write("Введите пароль: ");
+                        EndDrawing();
+                        string pass = InputBox.ConfirmPassword();
                         string answerFromServer = SendCommand("DELETE", logPass.login, pass);
                         switch (GetCode(answerFromServer))
                         {
                             case 0:
-                                Console.WriteLine("An incorrect username or password has been entered");
+                                EndDrawing();
+                                InputBox.IncorrectAuth();
                                 break;
-
                             case 1:
                                 fileInfo.Delete();
                                 LoginOrRegistration();
@@ -266,9 +275,9 @@ namespace pong2
             switch (GetCode(answer))
             {
                 case 0:
-                    Console.WriteLine("An incorrect username or password has been entered or new name already in use");
+                    EndDrawing();
+                    InputBox.IncorrectAuth();
                     break;
-
                 case 1:
                     logPass.login = newUserName;
                     using (StreamWriter file = new StreamWriter(path, false, Encoding.UTF8))
