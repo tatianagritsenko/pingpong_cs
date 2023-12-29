@@ -10,7 +10,7 @@ namespace pong2
         public float Width { get; set; }
         public float Height { get; set; }
         public int Speed { get; set; }
-    
+
 
         public Paddle(float w, float h, float x, float y, int s)
         {

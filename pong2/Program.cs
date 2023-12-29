@@ -11,9 +11,6 @@ namespace pong2
             var client = new Client(ServerIP, port);
 
             client.Start();
-
-            // пример красивой формы для ввода данных пользователем
-            //InputBox.Example(); 
         }
     }
 }

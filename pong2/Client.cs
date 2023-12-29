@@ -2,25 +2,28 @@
 using System.Net;
 using System.Text;
 using System.ComponentModel.Design;
+using Raylib_cs;
+using static Raylib_cs.Raylib;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace pong2
 {
     public class Client
     {
+        const int screenWidth = 800;
+        const int screenHeight = 450;
+
         string ServerIP;
         int port;
 
         IPAddress ipAddr;
         IPEndPoint ipEndPoint;
 
-        public string login;
-        public string password;
+        LoginPassword logPass;
         string score;
 
         string path = "user.txt";
         FileInfo fileInfo;
-
-        bool Exit = false; // выход из меню
 
         public Client(string ip, int port)
         {
@@ -35,6 +38,8 @@ namespace pong2
 
         public void Start()
         {
+            InitWindow(screenWidth, screenHeight, "STN pong");
+
             if (fileInfo.Exists)
                 AutoLogin();
             else
@@ -71,11 +76,11 @@ namespace pong2
         {
             using (StreamReader file = new StreamReader(path, Encoding.UTF8))
             {
-                login = file.ReadLine();
-                password = file.ReadLine();
+                logPass.login = file.ReadLine();
+                logPass.password = file.ReadLine();
             }
 
-            string answer = SendCommand("LOGIN", login, password);
+            string answer = SendCommand("LOGIN", logPass.login, logPass.password);
 
             if (GetCode(answer) == 0)
                 Console.WriteLine("An incorrect username or password has been entered");
@@ -85,49 +90,28 @@ namespace pong2
 
         private void LoginOrRegistration()
         {
-            Console.WriteLine();
-            Console.WriteLine("1. Вход");
-            Console.WriteLine("2. Регистрация");
-            Console.WriteLine();
-            Console.WriteLine("3. Выход из приложения");
-            int choice = int.Parse(Console.ReadLine());
+            //Выбрать опцию - регистрация или авторизация 
+            int opt = InputBox.ChooseOpt();
+            Console.WriteLine(opt);
 
-            if (choice != 1 && choice != 2 && choice != 3)
-            {
-                Console.WriteLine("Некорректный ввод");
-                return;
-            }
-
-            if (choice == 3)
-                return;
+            string str = "default";
+            logPass.login = str;
+            logPass.password = str;
 
             int code = 0; // код, который возвращает сервер
 
             while (code == 0)
             {
-                Console.Write("Введите логин: ");
-                login = Console.ReadLine();
-
-                Console.Write("Введите пароль: ");
-                password = Console.ReadLine();
-
                 string answer = "";
-
-                switch (choice)
+                switch (opt)
                 {
                     case 1:
-                        answer = SendCommand("LOGIN", login, password);
+                        logPass = InputBox.Registration();
+                        answer = SendCommand("REGISTER", logPass.login, logPass.password);
                         break;
-
                     case 2:
-                        answer = SendCommand("REGISTER", login, password);
-                        break;
-
-                    case 3:
-                        return;
-
-                    default:
-                        Console.WriteLine("Некорректный ввод");
+                        logPass = InputBox.Autorization();
+                        answer = SendCommand("LOGIN", logPass.login, logPass.password);
                         break;
                 }
 
@@ -136,7 +120,7 @@ namespace pong2
                 switch (code)
                 {
                     case 0:
-                        switch (choice)
+                        switch (opt)
                         {
                             case 1:
                                 Console.WriteLine("An incorrect username or password has been entered");
@@ -145,62 +129,32 @@ namespace pong2
                             case 2:
                                 Console.WriteLine("Username is already in use");
                                 break;
-
-                            default:
-                                Console.WriteLine("Некорректный ввод");
-                                break;
                         }
                         break;
 
                     case 1:
                         using (StreamWriter file = new StreamWriter(path, false, Encoding.UTF8))
                         {
-                            file.WriteLine(login);
-                            file.WriteLine(password);
+                            file.WriteLine(logPass.login);
+                            file.WriteLine(logPass.password);
                         }
                         Menu();
-                        break;
-
-                    default:
-                        Console.WriteLine("Некорректный код");
                         break;
                 }
             }
         }
 
+
         private void Menu()
         {
-            while (!Exit)
+            while (!WindowShouldClose())
             {
-                Console.WriteLine();
-                Console.WriteLine("_______МЕНЮ_______");
-                Console.WriteLine("1. Начать игру");
-                Console.WriteLine("2. Профиль");
-                Console.WriteLine("3. Выход");
-
-                int menu = int.Parse(Console.ReadLine());
+                int menu = InputBox.Menu();
 
                 switch (menu)
                 {
                     case 1:
-                        string answer = SendCommand("RUNGAME", login, password);
-                        switch (GetCode(answer))
-                        {
-                            case 0:
-                                Console.WriteLine("An incorrect username or password has been entered");
-                                break;
-
-                            default:
-                                Console.WriteLine(answer);
-                                string[] splitAnswer = answer.Split(' ');
-                                int newPort = int.Parse(splitAnswer[1]);
-
-                                var game = new GameClient(ServerIP, newPort);
-                                int score = game.Play();
-
-                                SendCommand("ENDGAME", login, score.ToString());
-                                break;
-                        }
+                        RunGame();
                         break;
 
                     case 2:
@@ -208,106 +162,107 @@ namespace pong2
                         break;
 
                     case 3:
-                        Exit = true;
-                        break;
-
-                    default:
-                        Console.WriteLine("Некорректный ввод");
+                        CloseWindow();
                         break;
                 }
             }
         }
 
-        private void Profile()
+        private void RunGame()
         {
-            Console.WriteLine();
-            Console.WriteLine("ПРОФИЛЬ");
-            Console.WriteLine($"Имя пользователя: {login}");
-
-            string answer = SendCommand("GETSCORE", login);
+            string answer = SendCommand("RUNGAME", logPass.login, logPass.password);
             switch (GetCode(answer))
             {
                 case 0:
-                    Console.WriteLine("An incorrect username has been entered");
-                    break;
-
-                case 1:
-                    string[] splitString = answer.Split(' ');
-                    score = splitString[splitString.Length - 1];
+                    Console.WriteLine("An incorrect username or password has been entered");
                     break;
 
                 default:
-                    Console.WriteLine("Некорректный код");
+                    
+                    string[] splitAnswer = answer.Split(' ');
+                    int newPort = int.Parse(splitAnswer[1]);
+
+                    CloseWindow();
+                    var game = new GameClient(ServerIP, newPort);
+                    int score = game.Play();
+
+                    InitWindow(screenWidth, screenHeight, "STN pong");
+                    SendCommand("ENDGAME", logPass.login, score.ToString());
                     break;
             }
-            Console.WriteLine($"Кол-во очков: {score}");
-
-            Console.WriteLine();
-            Console.WriteLine("TOPSCORE");
-            answer = SendCommand("TOPSCORE");
-            string[] splitAnswer = answer.Split(' ');
-            int place = 1;
-            for (int i = 5; i < splitAnswer.Length-1; i += 2, place++)
+        }
+        private void Profile()
+        {
+            while (!WindowShouldClose())
             {
-                Console.WriteLine($"{place}. {splitAnswer[i]} {splitAnswer[i + 1]}");
-            }
+                string answer = SendCommand("GETSCORE", logPass.login);
+                switch (GetCode(answer))
+                {
+                    case 0:
+                        Console.WriteLine("An incorrect username has been entered");
+                        break;
 
-            Console.WriteLine();
-            Console.WriteLine("1. Изменить имя пользователя");
-            Console.WriteLine("2. Выход из профиля");
-            Console.WriteLine("3. Удалить профиль");
-            Console.WriteLine();
-            Console.WriteLine("4. Меню");
+                    case 1:
+                        string[] splitString = answer.Split(' ');
+                        score = splitString[splitString.Length - 1];
+                        break;
+                }
+                Console.WriteLine($"Кол-во очков: {score}");
 
-            int choice = int.Parse(Console.ReadLine());
+                answer = SendCommand("TOPSCORE");
+                string[] splitAnswer = answer.Split(' ');
+                int count = (splitAnswer.Length - 5) / 2;
 
-            switch (choice)
-            {
-                case 1:
-                    ChangeName();
-                    break;
+                string[] names = new string[count];
+                int[] scores = new int[count];
 
-                case 2:
-                    fileInfo.Delete();
-                    LoginOrRegistration();
-                    break;
+                for (int i = 0; i < count; i++)
+                {
+                    names[i] = splitAnswer[5 + i * 2];
+                    scores[i] = int.Parse(splitAnswer[6 + i * 2]);
+                }
 
-                case 3:
-                    Console.Write("Введите пароль: ");
-                    string pass = Console.ReadLine();
-                    string answerFromServer = SendCommand("DELETE", login, pass);
-                    switch (GetCode(answerFromServer))
-                    {
-                        case 0:
-                            Console.WriteLine("An incorrect username or password has been entered");
-                            break;
+                int choice = InputBox.Profile(logPass.login, names, scores);
 
-                        case 1:
-                            fileInfo.Delete();
-                            LoginOrRegistration();
-                            break;
+                switch (choice)
+                {
+                    case 1:
+                        ChangeName();
+                        break;
 
-                        default:
-                            break;
-                    }
-                    break;
+                    case 2:
+                        fileInfo.Delete();
+                        LoginOrRegistration();
+                        break;
 
-                case 4:
-                    Menu();
-                    break;
+                    case 3:
+                        Console.Write("Введите пароль: ");
+                        string pass = Console.ReadLine();
+                        string answerFromServer = SendCommand("DELETE", logPass.login, pass);
+                        switch (GetCode(answerFromServer))
+                        {
+                            case 0:
+                                Console.WriteLine("An incorrect username or password has been entered");
+                                break;
 
-                default:
-                    Console.WriteLine("Некорректный ввод");
-                    break;
+                            case 1:
+                                fileInfo.Delete();
+                                LoginOrRegistration();
+                                break;
+                        }
+                        break;
+
+                    case 4:
+                        Menu();
+                        break;
+                }
             }
         }
 
         private void ChangeName()
         {
-            Console.WriteLine();
-            Console.Write("Введите новое имя пользователя: ");
-            string newUserName = Console.ReadLine();
-            string answer = SendCommand("CHANGE", login, password, newUserName);
+            string newUserName = InputBox.ChangeName();
+            string answer = SendCommand("CHANGE", logPass.login, logPass.password, newUserName);
 
             switch (GetCode(answer))
             {
@@ -316,30 +271,14 @@ namespace pong2
                     break;
 
                 case 1:
-                    login = newUserName;
+                    logPass.login = newUserName;
                     using (StreamWriter file = new StreamWriter(path, false, Encoding.UTF8))
                     {
-                        file.WriteLine(login);
-                        file.WriteLine(password);
+                        file.WriteLine(logPass.login);
+                        file.WriteLine(logPass.password);
                     }
-                    break;
-
-                default:
-                    Console.WriteLine("Некорректный код");
                     break;
             }
         }
-
-        /*private string GeneratePass()
-        {
-            string iPass = "";
-            string[] arr = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Z", "b", "c", "d", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z", "A", "E", "U", "Y", "a", "e", "i", "o", "u", "y" };
-            Random rnd = new Random();
-            for (int i = 0; i < 10; i++)
-            {
-                iPass = iPass + arr[rnd.Next(0, 57)];
-            }
-            return iPass;
-        }*/
     }
 }

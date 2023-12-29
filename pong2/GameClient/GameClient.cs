@@ -47,7 +47,7 @@ namespace pong2
             byte[] bytes = new byte[1024];
             int bytesRec = client.Receive(bytes);
             string answer = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-            
+
             return answer;
         }
 
@@ -71,7 +71,7 @@ namespace pong2
             InitWindow(screen_width, screen_height, "My Pong Game!");
             SetTargetFPS(60);
 
-            BallClient ball = new BallClient(screen_width / 2, screen_height / 2, 20); 
+            BallClient ball = new BallClient(screen_width / 2, screen_height / 2, 20);
             PaddleClient player = new PaddleClient(25, 120, screen_width - 35, screen_height / 2 - 60);
             PaddleClient cpu = new PaddleClient(25, 120, 10, screen_height / 2 - 60);
 
@@ -87,18 +87,16 @@ namespace pong2
                     KeyDownPressed = 1;
 
                 string answer = SendCommand(KeyUpPressed.ToString(), KeyDownPressed.ToString());
-                string[] coordinates = answer.Split(", ");
-
-                string[] score = coordinates[5].Split(' ');
+                string[] coordinates = answer.Split(' ');
 
                 float ballX = float.Parse(coordinates[0]);
                 float ballY = float.Parse(coordinates[1]);
                 float playerX = float.Parse(coordinates[2]);
                 float playerY = float.Parse(coordinates[3]);
                 float cpuX = float.Parse(coordinates[4]);
-                float cpuY = float.Parse(score[0]);
-                CPU_score = int.Parse(score[1]);
-                Player_score = int.Parse(score[2]);
+                float cpuY = float.Parse(coordinates[5]);
+                CPU_score = int.Parse(coordinates[6]);
+                Player_score = int.Parse(coordinates[7]);
 
                 // Updating
                 ball.Update(ballX, ballY);
