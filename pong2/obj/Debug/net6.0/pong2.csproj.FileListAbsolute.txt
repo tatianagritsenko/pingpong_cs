@@ -42,3 +42,25 @@ C:/Users/Татьяна Гриценко/Documents/4 курс/Разработк
 /Users/setuyaa/Desktop/pingpong_cs/pong2/obj/Debug/net6.0/pong2.pdb
 /Users/setuyaa/Desktop/pingpong_cs/pong2/obj/Debug/net6.0/pong2.genruntimeconfig.cache
 /Users/setuyaa/Desktop/pingpong_cs/pong2/obj/Debug/net6.0/ref/pong2.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\pong2.exe
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\pong2.deps.json
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\pong2.runtimeconfig.json
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\pong2.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\pong2.pdb
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\Raylib-cs.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\runtimes\linux-x64\native\libraylib.so
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\runtimes\osx-arm64\native\libraylib.dylib
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\runtimes\osx-x64\native\libraylib.dylib
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\runtimes\win-x64\native\raylib.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\bin\Debug\net6.0\runtimes\win-x86\native\raylib.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.csproj.AssemblyReference.cache
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.AssemblyInfoInputs.cache
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.AssemblyInfo.cs
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.csproj.CoreCompileInputs.cache
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.csproj.CopyComplete
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\refint\pong2.dll
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.pdb
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\pong2.genruntimeconfig.cache
+C:\Users\Татьяна Гриценко\Documents\4 курс\Разработка распределённых приложений\pingpong_cs2\pingpong_cs\pong2\obj\Debug\net6.0\ref\pong2.dll

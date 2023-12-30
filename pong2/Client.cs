@@ -243,21 +243,8 @@ namespace pong2
                         break;
 
                     case 3:
-                        //Console.Write("Введите пароль: ");
                         EndDrawing();
-                        string pass = InputBox.ConfirmPassword();
-                        string answerFromServer = SendCommand("DELETE", logPass.login, pass);
-                        switch (GetCode(answerFromServer))
-                        {
-                            case 0:
-                                EndDrawing();
-                                InputBox.IncorrectAuth();
-                                break;
-                            case 1:
-                                fileInfo.Delete();
-                                LoginOrRegistration();
-                                break;
-                        }
+                        DeleteProfile();
                         break;
 
                     case 4:
@@ -285,6 +272,23 @@ namespace pong2
                         file.WriteLine(logPass.login);
                         file.WriteLine(logPass.password);
                     }
+                    break;
+            }
+        }
+
+        void DeleteProfile()
+        {
+            string pass = InputBox.ConfirmPassword();
+            string answerFromServer = SendCommand("DELETE", logPass.login, pass);
+            switch (GetCode(answerFromServer))
+            {
+                case 0:
+                    EndDrawing();
+                    InputBox.IncorrectAuth();
+                    break;
+                case 1:
+                    fileInfo.Delete();
+                    LoginOrRegistration();
                     break;
             }
         }

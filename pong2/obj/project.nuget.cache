@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "v5Zo7upYbvLukC6vNVObqWrNwwUZFSolCvGblsNGmA1kydVcxVx2P+d+r9CPPF08XikHXSAV+Lk7s++YP23MsA==",
+  "dgSpecHash": "iiP1WVOblVThINQ1MvyqVYBULEmOtrijK/CMBv0IYRrlcsNQQW0iJp6ZronTzswEQglEUjpVkB+yWw2wB883YA==",
   "success": true,
-  "projectFilePath": "/Users/setuyaa/Desktop/pingpong_cs/pong2/pong2.csproj",
+  "projectFilePath": "C:\\Users\\Татьяна Гриценко\\Documents\\4 курс\\Разработка распределённых приложений\\pingpong_cs2\\pingpong_cs\\pong2\\pong2.csproj",
   "expectedPackageFiles": [
-    "/Users/setuyaa/.nuget/packages/raylib-cs/5.0.0/raylib-cs.5.0.0.nupkg.sha512",
-    "/Users/setuyaa/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512"
+    "C:\\Users\\Татьяна Гриценко\\.nuget\\packages\\raylib-cs\\5.0.0\\raylib-cs.5.0.0.nupkg.sha512",
+    "C:\\Users\\Татьяна Гриценко\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }
